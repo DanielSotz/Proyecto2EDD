@@ -78,21 +78,21 @@ public class TablaHash {
                 while(aux.siguiente != null )
                 {                    
                     aux = aux.siguiente;
-                    this.insertar(aux.dpi.toString(), aux.nombre);
+                    this.insertar(aux.dpi.toString(), aux.nombre, aux.apellido,aux.genero,aux.telefono,aux.direccion);
                 }
                 
-                this.insertar(temp_hash_ante[i].dpi.toString(), temp_hash_ante[i].nombre);               
+                this.insertar(temp_hash_ante[i].dpi.toString(), temp_hash_ante[i].nombre,temp_hash_ante[i].apellido,temp_hash_ante[i].genero,temp_hash_ante[i].telefono,temp_hash_ante[i].direccion);               
             }  
         }        
     }
     
-     public void insertar(String dpi, String nombre)
+     public void insertar(String dpi, String nombre, String apellido, String genero, String telefono, String direccion)
     {
         BigInteger bdpi = new BigInteger(dpi);
         int posicion = funcionHash(dpi);
         NodoHash nuevo;
         
-        nuevo = new NodoHash(bdpi,nombre);
+        nuevo = new NodoHash(bdpi,nombre,apellido,genero,telefono,direccion);
         nuevo.siguiente = this.tabla[posicion]; //creando la lista enlazada         
         this.tabla[posicion]= nuevo; //insertando al principio d    11 1e la lita 
         
@@ -102,5 +102,60 @@ public class TablaHash {
         this.Limite_llenado();  //verificando porcentaje llenado
         
     }
+     
+     public NodoHash buscar(String clave)
+    {        
+        int posicion = funcionHash(clave);
+        
+       NodoHash aux = null;
+       
+       
+       if(this.tabla[posicion]!= null)
+       {
+            aux = this.tabla[posicion];
+            while( (aux.siguiente != null) && (!aux.dpi.toString().equals(clave)) )
+                aux = aux.siguiente;
+            
+            if( !aux.dpi.toString().equals(clave))
+                aux = null;
+       }       
+       return aux;
+    }
+     
+     
+     public void modificar(String clave, String nombre, String apellido, String genero, String telefono, String direccion)
+     {
+         
+         int posicion = funcionHash(clave);
+         NodoHash aux = null;
+       
+       
+       if(this.tabla[posicion]!= null)
+       {
+            aux = this.tabla[posicion];
+            while( (aux.siguiente != null) && (!aux.dpi.toString().equals(clave)) )
+                aux = aux.siguiente;
+            
+            if( !aux.dpi.toString().equals(clave))
+                aux = null;
+       }
+       
+       if(aux != null)
+       {
+           aux.nombre = nombre;
+           aux.apellido = apellido;
+           aux.genero = genero;
+           aux.telefono = telefono;
+           aux.direccion = direccion;
+           JOptionPane.showMessageDialog(null, "Datos cliente actualizado");
+           
+       }
+       else
+           JOptionPane.showMessageDialog(null, "No se encontro el cliente");
+
+       
+       
+         
+     }
     
 }
