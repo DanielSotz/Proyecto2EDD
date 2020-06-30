@@ -5,6 +5,8 @@
  */
 package Hash;
 
+import java.io.File;
+import java.io.FileWriter;
 import java.math.BigInteger;
 import javax.swing.JOptionPane;
 
@@ -188,5 +190,117 @@ public class TablaHash {
             System.out.println("No se encuentra el elemento en la tabla");
         
     }
+     
+     
+     public boolean graficando_users(){
+        StringBuilder graf  = new StringBuilder(); //grafica total
+        StringBuilder index  = new StringBuilder(); // enlaces del vector hash principal
+        StringBuilder rank  = new StringBuilder(); // para alinear el vector hash
+        StringBuilder datos  = new StringBuilder(); // para los datos de la tabla
+        StringBuilder enlace  = new StringBuilder(); // para enlaces de los datos
+                       
+        graf.append("digraph G { rankdir=LR\n");
+        graf.append("node [shape=record];\n");
+                
+        
+        rank.append("{rank=same "); 
+         
+        for (int i = 0; i < tabla.length ;i++) {
+            graf.append("nd_"+i+" [label = \" \" ];\n"); //dibujando el vector hash
+            if(i < (tabla.length -1) )
+            {
+                index.append("nd_"+i+" ->");
+            }
+            else
+            {
+                index.append("nd_"+i+" [color=grey arrowhead=none];\n");
+            }
+            
+            rank.append("nd_"+i +" ");
+        }
+        
+        
+        for (int i = 0; i < tabla.length ;i++) {
+            
+            NodoHash aux = null;
+            
+            if(this.tabla[i]!= null)
+            {
+                aux = this.tabla[i];
+                datos.append("n"+i+" [label = \" "+ aux.dpi.toString() +"\" ];\n");
+                
+                enlace.append("nd_"+i+" -> " + "n"+i+";\n");
+                int contador=0;
+                while( (aux.siguiente != null)  )
+                {                    
+                    datos.append("ns"+i+contador+" [label = \" "+ aux.siguiente.dpi.toString() +"\" ];\n");
+                    if(contador ==0)
+                    {
+                        enlace.append("n"+i+" -> " + "ns"+i+contador+";\n");
+                    }
+                    else
+                    {
+                        enlace.append("ns"+i+(contador-1)+" -> " + "ns"+i+contador+";\n");
+                    }
+                    contador++;
+                    
+                    aux = aux.siguiente;
+                }             
+            }   
+       
+        }
+        
+        rank.append("}\n"); 
+        
+        graf.append(index);
+        graf.append(datos);
+        graf.append(enlace);
+        graf.append(rank);
+        
+        
+        graf.append("}");
+
+        //JOptionPane.showMessageDialog(null,graf);
+        return this.graf_users(graf.toString());
+    }
+    
+    public boolean graf_users(String grafica){
+        //File archivo =new File("hash_user.txt");
+        try
+            {
+            File archivo =new File("hash_user.txt");
+            FileWriter escribir= new FileWriter(archivo);
+            escribir.write(grafica);
+            escribir.close();
+            }
+
+            catch(Exception e)
+            {
+            JOptionPane.showMessageDialog(null, "Error al escribir","Erro",JOptionPane.ERROR_MESSAGE);
+            return false;
+            }
+        
+        try {
+
+            Runtime rt = Runtime.getRuntime();
+            //rt.exec( cmd );
+            Process p = rt.exec("dot -Tpng hash_user.txt -o hash_user.png");
+            p.waitFor();
+            
+            //definiendo la ruta en la propiedad file
+            Runtime.getRuntime().exec("cmd /c start hash_user.png");
+            //rt.exec("hash_user.jpg");
+            //Desktop.getDesktop().open(new File("hash_user.jpg"));
+
+            } catch (Exception ex) {
+                ex.printStackTrace();
+                JOptionPane.showMessageDialog(null, ex,"Erro",JOptionPane.ERROR_MESSAGE);
+                return false;
+            } finally {}
+        
+        return true;
+        
+    }
+   
     
 }
