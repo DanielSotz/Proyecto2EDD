@@ -157,5 +157,36 @@ public class TablaHash {
        
          
      }
+     
+     public void eliminar(String clave)
+    {
+        int posicion = funcionHash(clave);
+        if(this.tabla[posicion] != null)
+        {
+            NodoHash anterior= null;
+            NodoHash actual= tabla[posicion];
+            
+            while( (actual.siguiente != null) && (!actual.dpi.toString().equals(clave)) )
+            {
+                anterior= actual;
+                actual = actual.siguiente;
+            }
+            
+            if( !actual.dpi.toString().equals(clave) )
+            {
+                System.out.println("No se encuentra el elemento en la tabla");
+                return;
+            }
+            else if(anterior == null)
+                this.tabla[posicion] = actual.siguiente;
+            else 
+                anterior.siguiente = actual.siguiente;
+            
+            actual=null;
+        }
+        else
+            System.out.println("No se encuentra el elemento en la tabla");
+        
+    }
     
 }
