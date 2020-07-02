@@ -21,20 +21,11 @@ public class RapiditoEDD {
     public static void main(String[] args) {
         // TODO code application logic here
         
-        Grafo g = new Grafo();
-        g.insertar("guate", "xela", 15);
-        g.insertar("guate", "toto", 20);
-        g.insertar("guate", "huehue", 25);
-        g.insertar("xela", "toto", 5);
-        g.insertar("toto", "huehue", 10);
         
-       
         
-        System.out.println(g.imprimirTODO());
+        Inicio inicial = new Inicio();
+        inicial.setVisible(true);
         
-        g.graficar();
-        
-        //System.out.println("----");
         
         
         
