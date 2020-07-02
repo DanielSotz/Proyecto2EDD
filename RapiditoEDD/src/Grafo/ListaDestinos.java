@@ -50,8 +50,9 @@ public class ListaDestinos {
     }
     
     
-    public void imprimir()
+    public String imprimir()
     {
+        String resultado="";
         if(estaVacia())
         {
             System.out.println("lista destino vacia");
@@ -62,11 +63,10 @@ public class ListaDestinos {
             NodoG temp = this.inicio;
             while( temp!=null)
             {
-                System.out.println(temp.destino+ " en "+ temp.tiempo);
+                resultado+= temp.origen + " ->" + temp.destino + " [label="+temp.tiempo +"];\n";                
                 temp = temp.siguiente;
             }            
         }
-        
-        
+        return resultado;        
     }
 }

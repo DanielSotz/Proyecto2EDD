@@ -1,0 +1,8 @@
+digraph grafo { rankdir=LR
+node [shape=circle];
+guate ->xela [label=15];
+guate ->toto [label=20];
+guate ->huehue [label=25];
+xela ->toto [label=5];
+toto ->huehue [label=10];
+}

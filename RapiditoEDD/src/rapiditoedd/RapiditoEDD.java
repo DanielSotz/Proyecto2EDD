@@ -30,7 +30,9 @@ public class RapiditoEDD {
         
        
         
-        g.imprimirTODO();
+        System.out.println(g.imprimirTODO());
+        
+        g.graficar();
         
         //System.out.println("----");
         

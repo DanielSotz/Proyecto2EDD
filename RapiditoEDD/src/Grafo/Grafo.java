@@ -5,6 +5,10 @@
  */
 package Grafo;
 
+import java.io.File;
+import java.io.FileWriter;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author danis
@@ -61,15 +65,16 @@ public class Grafo {
         }        
     }
     
-    public void imprimirTODO()
+    public String imprimirTODO()
     {
         NodoGra temp=cabeza;
+        String res="";
 	while(temp!= null)
-	{
-		System.out.println("\nOrigen "+temp.origen+" a:");
-                temp.destinos.imprimir();
+	{		
+                res +=temp.destinos.imprimir();                
                 temp = temp.siguiente;		
 	}
+        return res;
     }
     
     public NodoGra imprimirOrigen(String origen)
@@ -109,6 +114,60 @@ public class Grafo {
     
     public int getTamanio(){
         return tamanio;
+    }
+    
+    
+    public boolean graficar(){
+        StringBuilder graf  = new StringBuilder(); //grafica total
+        
+        
+                       
+        graf.append("digraph grafo { rankdir=LR\n");
+        graf.append("node [shape=circle];\n");
+        graf.append(imprimirTODO());    
+        
+        graf.append("}");
+
+        //JOptionPane.showMessageDialog(null,graf);
+        return this.graf_users(graf.toString());
+    }
+    
+    public boolean graf_users(String grafica){
+        //File archivo =new File("hash_user.txt");
+        try
+            {
+            File archivo =new File("grafo.txt");
+            FileWriter escribir= new FileWriter(archivo);
+            escribir.write(grafica);
+            escribir.close();
+            }
+
+            catch(Exception e)
+            {
+            JOptionPane.showMessageDialog(null, "Error al escribir","Erro",JOptionPane.ERROR_MESSAGE);
+            return false;
+            }
+        
+        try {
+
+            Runtime rt = Runtime.getRuntime();
+            //rt.exec( cmd );
+            Process p = rt.exec("dot -Tpng grafo.txt -o grafo.png");
+            p.waitFor();
+            
+            //definiendo la ruta en la propiedad file
+            Runtime.getRuntime().exec("cmd /c start grafo.png");
+            //rt.exec("hash_user.jpg");
+            //Desktop.getDesktop().open(new File("hash_user.jpg"));
+
+            } catch (Exception ex) {
+                ex.printStackTrace();
+                JOptionPane.showMessageDialog(null, ex,"Error",JOptionPane.ERROR_MESSAGE);
+                return false;
+            } finally {}
+        
+        return true;
+        
     }
     
     
