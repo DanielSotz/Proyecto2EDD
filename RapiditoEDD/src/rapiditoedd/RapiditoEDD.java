@@ -9,6 +9,10 @@ package rapiditoedd;
  *
  * @author danis
  */
+ 
+import Grafo.*;
+import Listas.*;
+
 public class RapiditoEDD {
 
     /**
@@ -16,6 +20,24 @@ public class RapiditoEDD {
      */
     public static void main(String[] args) {
         // TODO code application logic here
+        
+        Grafo g = new Grafo();
+        g.insertar("guate", "xela", 15);
+        g.insertar("guate", "toto", 20);
+        g.insertar("guate", "huehue", 25);
+        g.insertar("xela", "toto", 5);
+        g.insertar("toto", "huehue", 10);
+        
+       
+        
+        g.imprimirTODO();
+        
+        //System.out.println("----");
+        
+        
+        
+        
+        
     }
     
 }
