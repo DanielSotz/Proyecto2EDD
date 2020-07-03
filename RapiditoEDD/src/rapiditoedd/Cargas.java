@@ -16,6 +16,7 @@ import javax.swing.JOptionPane;
 import Grafo.Grafo;
 import Hash.TablaHash;
 import Listas.*;
+import ArbolB.*;
 
 /**
  *
@@ -27,6 +28,7 @@ public class Cargas {
     Grafo graf;
     TablaHash thash;
     ListaCircular conductores;
+    ArbolB arbol;
     
     public Cargas(){
    
@@ -184,6 +186,62 @@ public class Cargas {
             
         }
         return conductores;
+    }
+    
+    
+    public ArbolB cargaArbol() {
+        int contador = 1;        
+        
+        arbol= new ArbolB();
+        
+        
+        dialog.setDialogTitle("Cargar archivo de Vehiculos");
+        if(dialog.showOpenDialog(null)== JFileChooser.APPROVE_OPTION)
+        {
+            File archivo = dialog.getSelectedFile();
+            try
+            {
+                FileReader fr = new FileReader(archivo);
+                BufferedReader br = new BufferedReader(fr);
+                String linea;                
+                
+                try
+                { 
+                    while ((linea = br.readLine()) != null) {
+                       
+                        
+                        String[] parametros = linea.split(":");
+                        vehiculo agregando = new vehiculo(); 
+                        agregando.setPlaca(parametros[0]);
+                        agregando.setMarca(parametros[1]);
+                        agregando.setModelo(parametros[2]);   
+                        agregando.setAnio(Integer.parseInt(parametros[3].trim())); 
+                        agregando.setColor(parametros[4]); 
+                        agregando.setPrecio(Integer.parseInt(parametros[5].trim())); 
+                        agregando.setTransmision(parametros[6]); 
+                        
+                        
+                        arbol.Insertar(agregando);  
+                        
+                        contador++;
+                        
+                    }
+                }
+                catch (IOException ioe) {
+                    // xdxdxd
+                }
+                 br.close();
+            }catch (FileNotFoundException ex) {
+                //Logger.getLogger(Cargas.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (IOException ex) {
+                //Logger.getLogger(Cargas.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (Exception e){
+                //System.out.println("Puede que el archivo de entrada contenga lineas en blanco");
+                JOptionPane.showMessageDialog(null, "A ocurrido un error", "Alerta", JOptionPane.WARNING_MESSAGE);
+            }            
+            
+        }
+        return arbol;
     }
     
     
