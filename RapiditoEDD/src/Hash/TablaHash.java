@@ -58,7 +58,7 @@ public class TablaHash {
         
         int tam_actual = this.tamanio;
         JOptionPane.showMessageDialog(null, "tam_actual: " +  tam_actual);
-        tam_actual+=5;
+        tam_actual+=37;
         JOptionPane.showMessageDialog(null, "nuevo tamaño: " +  tam_actual);         
         NodoHash temp_hash_ante[];
         

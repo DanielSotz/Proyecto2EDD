@@ -5,23 +5,26 @@
  */
 package Listas;
 
+import java.math.BigInteger;
+
 /**
  *
  * @author Luis Rivera
  */
 public class Nodo {
     
-    private int DPI;
-    private String Nombre, Apellido, tipoLicencia, Genero, Telefono, Direccion;      
+    public BigInteger DPI;
+    public String Nombre, Apellido, tipoLicencia, Genero,Fecha, Telefono, Direccion;      
     private Nodo Siguiente, Anterior;
     
-    public Nodo(int ID, String Nombre, String Apellido, String tipo, String genero, String phone, String direction){
+    public Nodo(BigInteger ID, String Nombre, String Apellido, String tipo, String genero,String fecha, String phone, String direction){
     
         this.DPI = ID;
         this.Nombre = Nombre;
         this.Apellido = Apellido;
         this.tipoLicencia = tipo;
         this.Genero = genero;
+        this.Fecha = fecha;
         this.Telefono = phone;
         this.Direccion = direction;
         this.Siguiente = null;
@@ -31,14 +34,14 @@ public class Nodo {
     /**
      * @return the ID
      */
-    public int getID() {
+    public BigInteger getID() {
         return DPI;
     }
 
     /**
      * @param ID the ID to set
      */
-    public void setID(int ID) {
+    public void setID(BigInteger ID) {
         this.DPI = ID;
     }
 
@@ -125,6 +128,21 @@ public class Nodo {
     public void setGenero(String Genero) {
         this.Genero = Genero;
     }
+    
+     /**
+     * @return the Fecha
+     */
+    public String getFecha() {
+        return Fecha;
+    }
+
+    /**
+     * @param Fecha the Fecha to set
+     */
+    public void setFecha(String Fecha) {
+        this.Fecha = Fecha;
+    }
+    
 
     /**
      * @return the Telefono

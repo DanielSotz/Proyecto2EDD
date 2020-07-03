@@ -15,6 +15,7 @@ import javax.swing.JOptionPane;
 
 import Grafo.Grafo;
 import Hash.TablaHash;
+import Listas.*;
 
 /**
  *
@@ -25,6 +26,7 @@ public class Cargas {
     JFileChooser dialog = new JFileChooser();
     Grafo graf;
     TablaHash thash;
+    ListaCircular conductores;
     
     public Cargas(){
    
@@ -106,9 +108,7 @@ public class Cargas {
                 String linea;                
                 
                 try
-                {                   
-                    
-                    
+                { 
                     while ((linea = br.readLine()) != null) {
                         String[] parametros = linea.split(",");
                         
@@ -139,4 +139,53 @@ public class Cargas {
         }
         return thash;
     }
+    
+    public ListaCircular cargaCircular() {
+        int contador = 1;
+        
+        conductores = new ListaCircular();
+        
+        dialog.setDialogTitle("Cargar archivo de Conductores");
+        if(dialog.showOpenDialog(null)== JFileChooser.APPROVE_OPTION)
+        {
+            File archivo = dialog.getSelectedFile();
+            try
+            {
+                FileReader fr = new FileReader(archivo);
+                BufferedReader br = new BufferedReader(fr);
+                String linea;                
+                
+                try
+                {                  
+                  
+                    while ((linea = br.readLine()) != null) {
+                        String[] parametros = linea.split("%");
+                        
+                       
+                        
+                        conductores.InsertarNodo(parametros[0],parametros[1],parametros[2],parametros[3],parametros[4],parametros[5],parametros[6],parametros[7]);
+                        
+                        contador++;
+                        
+                    }
+                }
+                catch (IOException ioe) {
+                    // xdxdxd
+                }
+                 br.close();
+            }catch (FileNotFoundException ex) {
+                //Logger.getLogger(Cargas.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (IOException ex) {
+                //Logger.getLogger(Cargas.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (Exception e){
+                //System.out.println("Puede que el archivo de entrada contenga lineas en blanco");
+                JOptionPane.showMessageDialog(null, "A ocurrido un error", "Alerta", JOptionPane.WARNING_MESSAGE);
+            }            
+            
+        }
+        return conductores;
+    }
+    
+    
+    
 }
