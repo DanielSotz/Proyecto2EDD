@@ -175,49 +175,7 @@ public class Grafo {
         
     }
     
-    public void cargaMasiva()
-    {
-        int contador = 1;
-        fileChooser.setDialogTitle("Cargar archivo de clientes");
-        if(fileChooser.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {
-            File archivo = fileChooser.getSelectedFile();
-            try {
-                FileReader fr = new FileReader(archivo);
-                BufferedReader br = new BufferedReader(fr);
-                String linea;
-                try {
-                    while ((linea = br.readLine()) != null) {
-                       
-                        String[] parametros = linea.split(",");
-                        /*clientes agregando = new clientes(); 
-                        agregando.setCodigo(Integer.parseInt(parametros[0].trim()));
-                        agregando.setNombre(parametros[1]);
-                        agregando.setNumero(contador);                      AGREGAR ACÁ EL METODO INSERTAR DE CLIENTES
-                        
-                        insertar(Integer.parseInt(parametros[0].trim()),parametros[1],contador);    
-                        */
-                        
-                        contador++;
-                        
-                        
-                    }
-                    
-                } catch (IOException ioe) {
-                    // xdxdxd
-                }
-                
-                br.close();
-            } catch (FileNotFoundException ex) {
-                //Logger.getLogger(Cargas.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (IOException ex) {
-                //Logger.getLogger(Cargas.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (Exception e){
-                //System.out.println("Puede que el archivo de entrada contenga lineas en blanco");
-                JOptionPane.showMessageDialog(null, "A ocurrido un error", "Alerta", JOptionPane.WARNING_MESSAGE);
-            }
-            
-        }
-    }
+    
     
     
     

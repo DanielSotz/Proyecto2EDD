@@ -80,21 +80,21 @@ public class TablaHash {
                 while(aux.siguiente != null )
                 {                    
                     aux = aux.siguiente;
-                    this.insertar(aux.dpi.toString(), aux.nombre, aux.apellido,aux.genero,aux.telefono,aux.direccion);
+                    this.insertar(aux.dpi.toString(), aux.nombre, aux.apellido,aux.genero,aux.fecha,aux.telefono,aux.direccion);
                 }
                 
-                this.insertar(temp_hash_ante[i].dpi.toString(), temp_hash_ante[i].nombre,temp_hash_ante[i].apellido,temp_hash_ante[i].genero,temp_hash_ante[i].telefono,temp_hash_ante[i].direccion);               
+                this.insertar(temp_hash_ante[i].dpi.toString(), temp_hash_ante[i].nombre,temp_hash_ante[i].apellido,temp_hash_ante[i].genero,temp_hash_ante[i].fecha,temp_hash_ante[i].telefono,temp_hash_ante[i].direccion);               
             }  
         }        
     }
     
-     public void insertar(String dpi, String nombre, String apellido, String genero, String telefono, String direccion)
+     public void insertar(String dpi, String nombre, String apellido, String genero,String fecha, String telefono, String direccion)
     {
         BigInteger bdpi = new BigInteger(dpi);
         int posicion = funcionHash(dpi);
         NodoHash nuevo;
         
-        nuevo = new NodoHash(bdpi,nombre,apellido,genero,telefono,direccion);
+        nuevo = new NodoHash(bdpi,nombre,apellido,genero,fecha,telefono,direccion);
         nuevo.siguiente = this.tabla[posicion]; //creando la lista enlazada         
         this.tabla[posicion]= nuevo; //insertando al principio d    11 1e la lita 
         
@@ -125,7 +125,7 @@ public class TablaHash {
     }
      
      
-     public void modificar(String clave, String nombre, String apellido, String genero, String telefono, String direccion)
+     public void modificar(String clave,String nclave, String nombre, String apellido, String genero,String fecha, String telefono, String direccion)
      {
          
          int posicion = funcionHash(clave);
@@ -144,8 +144,11 @@ public class TablaHash {
        
        if(aux != null)
        {
+           BigInteger bdpi = new BigInteger(nclave);
+           aux.dpi = bdpi;
            aux.nombre = nombre;
            aux.apellido = apellido;
+           aux.fecha = fecha;
            aux.genero = genero;
            aux.telefono = telefono;
            aux.direccion = direccion;
@@ -176,7 +179,7 @@ public class TablaHash {
             
             if( !actual.dpi.toString().equals(clave) )
             {
-                System.out.println("No se encuentra el elemento en la tabla");
+                JOptionPane.showMessageDialog(null, "No se encuentra elemento en la tabla");
                 return;
             }
             else if(anterior == null)
@@ -184,10 +187,11 @@ public class TablaHash {
             else 
                 anterior.siguiente = actual.siguiente;
             
+            JOptionPane.showMessageDialog(null, "Elemento eliminado");
             actual=null;
         }
         else
-            System.out.println("No se encuentra el elemento en la tabla");
+            JOptionPane.showMessageDialog(null, "No se encuentra elemento en la tabla");            
         
     }
      
@@ -227,13 +231,13 @@ public class TablaHash {
             if(this.tabla[i]!= null)
             {
                 aux = this.tabla[i];
-                datos.append("n"+i+" [label = \" "+ aux.dpi.toString() +"\" ];\n");
+                datos.append("n"+i+" [label = \" "+ aux.dpi.toString() +"-"+aux.nombre+ "\" ];\n");
                 
                 enlace.append("nd_"+i+" -> " + "n"+i+";\n");
                 int contador=0;
                 while( (aux.siguiente != null)  )
                 {                    
-                    datos.append("ns"+i+contador+" [label = \" "+ aux.siguiente.dpi.toString() +"\" ];\n");
+                    datos.append("ns"+i+contador+" [label = \" "+ aux.siguiente.dpi.toString() +"-"+aux.nombre+ "\"];\n");
                     if(contador ==0)
                     {
                         enlace.append("n"+i+" -> " + "ns"+i+contador+";\n");

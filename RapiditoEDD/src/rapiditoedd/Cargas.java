@@ -14,6 +14,7 @@ import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 
 import Grafo.Grafo;
+import Hash.TablaHash;
 
 /**
  *
@@ -23,6 +24,7 @@ public class Cargas {
     public JFileChooser fileChooser;
     JFileChooser dialog = new JFileChooser();
     Grafo graf;
+    TablaHash thash;
     
     public Cargas(){
    
@@ -41,9 +43,7 @@ public class Cargas {
             {
                 FileReader fr = new FileReader(archivo);
                 BufferedReader br = new BufferedReader(fr);
-                String linea;
-                String cadena;
-                String document="";
+                String linea;                
                 
                 try
                 {                   
@@ -87,5 +87,56 @@ public class Cargas {
             
         }
         return graf;
-    }//GEN-LAST:event_cargaPaisesActionPerformed
+    }
+    
+    
+    public TablaHash cargaHash() {
+        int contador = 1;
+        
+        thash = new TablaHash(37);
+        
+        dialog.setDialogTitle("Cargar archivo de clientes");
+        if(dialog.showOpenDialog(null)== JFileChooser.APPROVE_OPTION)
+        {
+            File archivo = dialog.getSelectedFile();
+            try
+            {
+                FileReader fr = new FileReader(archivo);
+                BufferedReader br = new BufferedReader(fr);
+                String linea;                
+                
+                try
+                {                   
+                    
+                    
+                    while ((linea = br.readLine()) != null) {
+                        String[] parametros = linea.split(",");
+                        
+                        String numeros=parametros[6];
+                        String nnumero= numeros.replaceAll(";", "");
+                        
+                      
+                        thash.insertar(parametros[0],parametros[1],parametros[2],parametros[3],parametros[4],parametros[5],nnumero);
+                        
+                        
+                        contador++;
+                        
+                    }
+                }
+                catch (IOException ioe) {
+                    // xdxdxd
+                }
+                 br.close();
+            }catch (FileNotFoundException ex) {
+                //Logger.getLogger(Cargas.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (IOException ex) {
+                //Logger.getLogger(Cargas.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (Exception e){
+                //System.out.println("Puede que el archivo de entrada contenga lineas en blanco");
+                JOptionPane.showMessageDialog(null, "A ocurrido un error", "Alerta", JOptionPane.WARNING_MESSAGE);
+            }            
+            
+        }
+        return thash;
+    }
 }
