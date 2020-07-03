@@ -10,7 +10,9 @@ import Listas.ListaCircular;
 import java.awt.Image;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import static rapiditoedd.MClientes.inicio;
 
 /**
  *
@@ -23,7 +25,10 @@ public class MConductores extends javax.swing.JFrame {
      */
     
     ListaCircular conductores;
-    public MConductores() {
+    static JFrame inicio;
+    public MConductores(JFrame form1) {
+        inicio=form1;
+        form1.hide();
         initComponents();
         conductores = new ListaCircular();
         
@@ -263,8 +268,8 @@ public class MConductores extends javax.swing.JFrame {
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // TODO add your handling code here:
-        Inicio inicial = new Inicio();
-        inicial.setVisible(true);
+        inicio.show();
+        this.hide();
 
     }//GEN-LAST:event_jButton3ActionPerformed
 
@@ -341,7 +346,7 @@ public class MConductores extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new MConductores().setVisible(true);
+                new MConductores(inicio).setVisible(true);
             }
         });
     }

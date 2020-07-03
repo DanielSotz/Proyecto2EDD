@@ -9,6 +9,7 @@ import Hash.*;
 import java.awt.Image;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
 /**
@@ -21,8 +22,11 @@ public class MClientes extends javax.swing.JFrame {
      * Creates new form MClientes
      */
     TablaHash thash;
+    static JFrame inicio;
     
-    public MClientes() {
+    public MClientes(JFrame form1) {
+        inicio=form1;
+        form1.hide();
         initComponents();
         thash = new TablaHash(37);
     }
@@ -236,8 +240,8 @@ public class MClientes extends javax.swing.JFrame {
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // TODO add your handling code here:
-        Inicio inicial = new Inicio();
-         inicial.setVisible(true);
+         inicio.show();
+         this.hide();
        
          
     }//GEN-LAST:event_jButton3ActionPerformed
@@ -317,7 +321,7 @@ public class MClientes extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new MClientes().setVisible(true);
+                new MClientes(inicio).setVisible(true);
             }
         });
     }

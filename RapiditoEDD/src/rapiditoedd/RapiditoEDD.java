@@ -26,6 +26,8 @@ public class RapiditoEDD {
         Inicio inicial = new Inicio();
         inicial.setVisible(true);
         
+       
+        
         
         
         
